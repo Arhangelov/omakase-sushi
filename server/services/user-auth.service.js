@@ -24,7 +24,8 @@ const login = async ( email ) => {
 
     const userDTO = {
         email: user.email,
-        username: user.username
+        username: user.username,
+        address: user.address
     }
 
     const token = jwt.sign({ email: user.email, username: user.username, address: user.address }, secret, {
