@@ -12,7 +12,6 @@ router.post("/register", registerUserReqValidation, (req, res) => {
 
     register(req.body)
     .then(({ newUserDTO, token }) => {
-        console.log(req.body);
         res.status(201)
         .cookie(COOKIE_NAME, token, { httpOnly: true })
         .json({ newUserDTO, token })

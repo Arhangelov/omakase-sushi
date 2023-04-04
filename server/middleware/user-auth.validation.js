@@ -71,11 +71,11 @@ const loginUserReqValidation = [
     .withMessage("Password is required.")
     .custom(async ( password, { req }) => {
         const userEmail = req.body.email;
-        const user = await User.findOne({ userEmail });
-        // Checking if the compared passwords are equal. 
-        const passwordCompare = bcrypt.compare(password, user.password);
+        const user = await User.findOne({ email: userEmail });
+        // Checking if the compared passwords are equal.
+        const passwordCompare = bcrypt.compareSync(password, user.password);
         // Rejecting the request if the passwords are not equal.
-        if (passwordCompare) return Promise.reject("Invalid password.");
+        if (!passwordCompare) return Promise.reject("Invalid password.");
     })
 ];
 
