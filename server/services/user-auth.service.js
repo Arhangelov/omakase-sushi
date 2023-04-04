@@ -1,6 +1,17 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
+const getUser = async ({ username }) => {
+    const secret = process.env.SECRET; // Hash secret phrase taken from .env outside the repository.
+    const loggedUser = await User.findOne({ username });
+
+    const token = jwt.sign({ email: loggedUser.email, username: loggedUser.username }, secret, {
+        expiresIn: "2h",
+    });
+
+    return { loggedUser, token };
+};
+
 const register = async ({ email, username, password, address }) => {
     const secret = process.env.SECRET; //Hash secret phrase taken from .env outside the repository.
     const newUser = await new User({ email, username, password, address }).save();
@@ -33,4 +44,4 @@ const login = async ( email ) => {
     return { userDTO, token };
 };
 
-module.exports = { register, login };
+module.exports = { register, login, getUser };

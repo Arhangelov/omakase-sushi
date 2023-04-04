@@ -1,8 +1,22 @@
 const router = require("express").Router();
 const { COOKIE_NAME } = require("../config/main");
-const { register, login } = require("../services/user-auth.service");
+const { register, login, getUser } = require("../services/user-auth.service");
 const { registerUserReqValidation, loginUserReqValidation } = require("../middleware/user-auth.validation");
 const { validationResult } = require("express-validator");
+
+router.post("/getUser", (req, res) => {
+    getUser(req.body)
+    .then(({ loggedUser, token }) => {
+        res.status(200)
+        .cookie(COOKIE_NAME, token, { httpOnly: true })
+        .json({ loggedUser })
+    }).catch(err => {
+        return res.status(400).send({
+            message: `${err.message}`,
+            type: "ERROR"
+        });
+    })
+})
 
 router.post("/register", registerUserReqValidation, (req, res) => {
     const errors = validationResult(req) //Saving any occurred errors.
@@ -23,7 +37,7 @@ router.post("/register", registerUserReqValidation, (req, res) => {
     });
 });
 
-router.post('/login',
+router.post("/login",
     loginUserReqValidation,
     (req, res) => {
         const errors = validationResult(req); // Saving any occurred errors.
@@ -44,9 +58,9 @@ router.post('/login',
         });
 });
 
-router.get('/logout', (req, res) => {
+router.get("/logout", (req, res) => {
     res.clearCookie(COOKIE_NAME);
-    res.status(200).json({ message: `You successfully logged out.` })
+    res.status(200).json({ message: "You successfully logged out." })
 });
 
 module.exports = router;

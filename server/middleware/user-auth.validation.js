@@ -3,7 +3,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 const registerUserReqValidation = [
-    body('email')
+    body("email")
     .exists({ checkFalsy: true })
     .withMessage("Email is required.")
     .isEmail()
@@ -17,7 +17,7 @@ const registerUserReqValidation = [
         if (existingEmail) return Promise.reject(`Email ${email} already exists.`);
     }),
 
-    body('username')
+    body("username")
     .exists({ checkFalsy: true })
     .withMessage("Username is required.")
     .custom(async username => {
@@ -31,7 +31,7 @@ const registerUserReqValidation = [
     .isLength({ min: 5, max: 28 })
     .withMessage("Username should be between 5 and 28 characters long."),
 
-    body('password')
+    body("password")
     .exists({ checkFalsy: true })
     .withMessage("Password is required.")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,32}$/)
@@ -45,7 +45,7 @@ const registerUserReqValidation = [
         return true;
     }),
 
-    body('address')
+    body("address")
     .exists({ checkFalsy: true })
     .notEmpty().withMessage("Address field is required.")
     .isLength({ min: 12, max: 100 }).withMessage("Address must be at least 12 and less than 100 characters.")
@@ -53,7 +53,7 @@ const registerUserReqValidation = [
 ]
 
 const loginUserReqValidation = [
-    body('email')
+    body("email")
     .exists({ checkFalsy: true })
     .withMessage("Email is required.")
     .isEmail()
@@ -66,7 +66,7 @@ const loginUserReqValidation = [
         if (!existingUser) return Promise.reject(`No such user.`);
     }),
 
-    body('password')
+    body("password")
     .exists({ checkFalsy: true })
     .withMessage("Password is required.")
     .custom(async ( password, { req }) => {
