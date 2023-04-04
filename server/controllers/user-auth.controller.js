@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { COOKIE_NAME } = require("../config/main");
-const { register } = require("../services/user-auth.service");
+const { register, login } = require("../services/user-auth.service");
 const { registerUserReqValidation, loginUserReqValidation } = require("../middleware/user-auth.validation");
 const { validationResult } = require("express-validator");
 
