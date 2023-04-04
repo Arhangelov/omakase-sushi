@@ -42,6 +42,11 @@ router.post('/login',
                 type: "ERROR",
             });
         });
-    });
+});
+
+router.get('/logout', (req, res) => {
+    res.clearCookie(COOKIE_NAME);
+    res.status(200).json({ message: `You successfully logged out.` })
+});
 
 module.exports = router;
