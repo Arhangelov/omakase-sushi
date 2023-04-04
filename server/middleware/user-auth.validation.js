@@ -57,6 +57,8 @@ const loginUserReqValidation = [
     .exists({ checkFalsy: true })
     .withMessage("Email is required.")
     .isEmail()
+    .trim()
+    .normalizeEmail({ gmail_remove_dots: false })
     .custom(async email => {
         // Checking if the input email already exists.
         const existingUser = await User.findOne({ email });
