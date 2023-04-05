@@ -1,8 +1,15 @@
 const router = require('express').Router();
+const { validationResult } = require("express-validator");
+const { sushiAddReqValidation } = require("../middleware/sushi-crud.validation")
 const { addSushi } = require('../services/sushi-crud.service');
 
 
-router.post('/', (req, res) => {
+router.post('/', sushiAddReqValidation, (req, res) => {
+    const errors = validationResult(req) //Saving any occurred errors.
+    //If there're errors mark as Bad Request 400 and return error list.
+    if(!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    else validationResult(req).throw(); //Else clear validation results and continue with the response.
+
     addSushi(req.body)
     .then(() => {
         res.status(201).json({message: "Successfully created."});
