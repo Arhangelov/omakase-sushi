@@ -1,7 +1,6 @@
 const Sushi = require('../models/Sushi');
-const User = require('../models/User')
 
-async function addSushi ( data ) {
+const addSushi =  async ( data ) => {
     return new Sushi(data).save();
 };
 
