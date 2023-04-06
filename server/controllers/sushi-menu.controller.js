@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { validationResult } = require('express-validator');
 const { getTypeOfSushiReqValidation } = require("../middleware/sushi-menu.validation");
-const { getType } = require("../services/sushi-menu.service")
+const { getType, getSushiDetails } = require("../services/sushi-menu.service")
 
 router.get("/:typeOfSushi", getTypeOfSushiReqValidation, (req, res) => {
     const errors = validationResult(req) //Saving any occurred errors.
@@ -13,6 +13,13 @@ router.get("/:typeOfSushi", getTypeOfSushiReqValidation, (req, res) => {
         .then(typeOfSushi => {
             res.json(typeOfSushi);
         })
+})
+
+router.get("/details/:id", (req, res) => {
+    getSushiDetails(req.params.id)
+        .then(sushiDetails => {
+            res.json(sushiDetails);
+        });
 })
 
 module.exports = router
