@@ -42,7 +42,9 @@ const sushiAddReqValidation = [
         .exists({ checkFalsy: true })
         .withMessage("Type is required.")
         .isLength({ min: 3, max: 12 })
-        .withMessage("Type should be between 3 and 12 characters long."),
+        .withMessage("Type should be between 3 and 12 characters long.")
+        .isLowercase()
+        .withMessage("Type should be in lowercase."),
 
     body("portion")
         .exists({ checkFalsy: true })
