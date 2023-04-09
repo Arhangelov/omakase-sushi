@@ -1,7 +1,7 @@
 {
   "name": "omakase-sushi",
   "version": "0.0.1",
-  "description": "Podcast App Server Collaboration Development",
+  "description": "omakase api",
   "main": "index.js",
   "scripts": {
     "start": "node index",
