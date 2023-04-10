@@ -7,15 +7,16 @@ const addToCart = async ({ sushiData, userId, qty }) => {
     const currentSushi = user.cart.find((s) => s.id === sushiData.id);
 
     if (currentSushi != null) {
-        const filter = { _id: userId, "cart.id": sushiData.id };
-        const update = { 
-            "cart.$.qty": currentSushi.qty += qty, 
-            "cart.$.price": sushiData.price *= currentSushi.qty
-        };
+        const filter = { _id: userId, "cart.id": sushiData.id }; 
+        const update = { "cart.$.qty": currentSushi.qty + qty };
         await User.findOneAndUpdate( filter, update );
+        currentSushi.qty += qty;
+        currentSushi.price = sushiData.price * currentSushi.qty;
+        await user.save();
+
     } else {
         const currentQty = currentSushi != null ? currentSushi.qty : qty;
-        sushiData.price *= qty;
+        sushiData.price *= currentQty;
         user.cart.push({ ...sushiData, qty: currentQty });
 
         await user.save();
@@ -23,7 +24,6 @@ const addToCart = async ({ sushiData, userId, qty }) => {
 
     return user.cart;
 }
-
 module.exports = {
     addToCart
 }
