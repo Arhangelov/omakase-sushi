@@ -24,6 +24,21 @@ const addToCart = async ({ sushiData, userId, qty }) => {
 
     return user.cart;
 }
+
+const getUserCart = async ({ userId }) => {
+    const user = await User.findById(userId);
+    return user.cart
+}
+
+const deleteFromCart = async ({ sushiId, userId }) => {
+    const user = await User.findById(userId);
+    user.cart = user.cart.filter(s => s.id !== sushiId);
+
+    user.save();
+    return user.cart;
+}
 module.exports = {
-    addToCart
+    addToCart,
+    getUserCart,
+    deleteFromCart
 }
