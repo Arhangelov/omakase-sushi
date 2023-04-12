@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { addToCart, getUserCart, deleteFromCart } = require("../services/sushi-cart.service");
+const { addToCart, getUserCart, deleteFromCart, finishOrder } = require("../services/sushi-cart.service");
 
 router.post("/addtocart", (req, res) => {
     addToCart(req.body)
@@ -30,6 +30,18 @@ router.post("/deletefromcart", (req, res) => {
         .then(cart => {
             res.status(200)
             .json(cart)
+        }).catch(err => {
+            return res.status(400).send({
+                message: `${err.message}`,
+                type: "ERROR"
+            });
+        })
+});
+
+router.post("/finishorder", (req, res) => {
+    finishOrder(req.body)
+        .then(orderHistory => {
+            res.json(orderHistory)
         }).catch(err => {
             return res.status(400).send({
                 message: `${err.message}`,
