@@ -1,27 +1,24 @@
 const Sushi = require('../models/Sushi');
 const User = require("../models/User");
 
-const addToCart = async ({ sushiData, userId, qty }) => {
-    const user = await User.findById(userId).populate("cart.id");
-
+const addToCart = async ({ sushiData, userId }) => {
+    const user = await User.findById(userId);
     const currentSushi = user.cart.find((s) => s.id === sushiData.id);
 
-    if (currentSushi != null) {
-        const filter = { _id: userId, "cart.id": sushiData.id }; 
-        const update = { "cart.$.qty": currentSushi.qty + qty };
-        await User.findOneAndUpdate( filter, update );
-        currentSushi.qty += qty;
-        currentSushi.price = sushiData.price * currentSushi.qty;
-        await user.save();
+    if (currentSushi) {
+        const indexOfSushi = user.cart.indexOf(currentSushi);
 
+        user.cart[indexOfSushi].qty += sushiData.qty;
+
+        await User.findOneAndUpdate( {_id: userId}, {cart: user.cart}, { returnDocument: 'after' });
+        await user.save();
+        
     } else {
-        const currentQty = currentSushi != null ? currentSushi.qty : qty;
-        sushiData.price *= currentQty;
-        user.cart.push({ ...sushiData, qty: currentQty });
+        user.cart.push(sushiData);
 
         await user.save();
     }
-
+    
     return user.cart;
 }
 
