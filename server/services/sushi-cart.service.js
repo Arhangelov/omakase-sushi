@@ -37,8 +37,26 @@ const deleteFromCart = async ({ sushiId, userId }) => {
     user.save();
     return user.cart;
 }
+
+const finishOrder = async({ userId, finalPrice }) => {
+    const showDate = new Date();
+    const currDate = showDate.getDate()+"/"+(showDate.getMonth()+1);
+
+    const user = await User.findById(userId);
+    const cart = user.cart;
+
+    if(cart.length != 0) {
+        user.purchaseHistory.push({ currDate, cart, finalPrice });
+        user.cart = [];
+    } else {
+        throw new Error("The cart is empty.")
+    }
+
+    return await user.save();
+}
 module.exports = {
     addToCart,
     getUserCart,
-    deleteFromCart
+    deleteFromCart,
+    finishOrder
 }
