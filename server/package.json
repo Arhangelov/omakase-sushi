@@ -1,5 +1,5 @@
 {
-  "name": "omakase-sushi",
+  "name": "omakase-sushi-api",
   "version": "0.0.1",
   "description": "omakase api",
   "main": "index.js",
