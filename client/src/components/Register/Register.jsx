@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from "../../store/UserContext";
 import { useNavigate, Link } from 'react-router-dom';
 import { registerService } from '../../services/userAuth.service';
@@ -15,8 +15,9 @@ const Register = () => {
         confirmPassword: "",
         address: "",
     });
-
-    if (user.username) navigate("/");
+    useEffect(() => {
+        if (user.username) navigate("/");
+    }, [navigate])
 
     const { email, username, password, confirmPassword, address } = formData;
     const onChange = (e) => {
