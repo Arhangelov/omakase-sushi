@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react';
 import { Context } from "../../store/UserContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { registerService } from '../../services/userAuth.service';
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { toastErrorHandler } from '../../utils/toastErrorHandling';
 
 const Register = () => {
     const [user, setUser] = useContext(Context);
@@ -48,14 +49,7 @@ const Register = () => {
                     localStorage.setItem('userToken', response.token);
                     navigate("/");
                 }).catch(err => {
-                    toast.error(`${err}`, {
-                        style: {
-                            borderRadius: "10px",
-                            background: "#333",
-                            color: "#fff"
-                        },
-                        duration: 9000
-                    })
+                    toastErrorHandler(err);
                 });
         }
     }
@@ -83,6 +77,9 @@ const Register = () => {
 
                 <input onChange={onChange} type="submit" value="Register" />
             </form>
+            <p>
+                Already have an account? <Link to="/login">Sign In</Link>
+            </p>
         </>
     )
 }
