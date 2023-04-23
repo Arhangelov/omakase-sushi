@@ -8,6 +8,7 @@ import { toastErrorHandler } from './utils/toastErrorHandling';
 //Pages for routing
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
+import Login from './components/Login/Login';
 
 function App() {
     const [user, setUser] = useContext(Context);
@@ -18,6 +19,7 @@ function App() {
         logoutService()
         .then(res => {
             localStorage.clear();
+            setUser({ email: "", username: "", address: "" });
             toast.success(`${res.message}`);
             navigate("/");
         }).catch(err => {
@@ -41,6 +43,7 @@ function App() {
             <Routes>
                 <Route path='/' element={ <Home /> }/>
                 <Route path='/register' element={ <Register /> }/>
+                <Route path='/login' element={ <Login /> }/>
             </Routes>
         </div>
     );
