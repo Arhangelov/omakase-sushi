@@ -7,3 +7,10 @@ export const registerService = async ( newUser ) => {
         body: JSON.stringify({ ...newUser })
     }).then(res => res.json());
 }
+
+export const logoutService = async () => {
+    return fetch( url + "/logout", {
+        method: "GET",
+        headers: {"Content-Type": "application/json"},
+    }).then(res => res.json());
+}
