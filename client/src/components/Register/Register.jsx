@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { Context } from "../../store/UserContext";
 import { useNavigate } from 'react-router-dom';
+import { registerService } from '../../services/userAuth.service';
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
     const [user, setUser] = useContext(Context);
@@ -23,8 +25,6 @@ const Register = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(email, username, password, confirmPassword, address);
-
         if (password !== confirmPassword) {
             console.log("Password do not match");
         } else {
@@ -36,12 +36,7 @@ const Register = () => {
                 address
             };
 
-            fetch("https://omakase-sushi-api.vercel.app/auth/register", {
-                method: "POST",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify(newUser)
-            })
-                .then(res => res.json())
+            registerService(newUser)
                 .then(response => {
                     if (response.errors) {
                         const errMsg = response.errors.map(err => err.msg);
@@ -52,12 +47,22 @@ const Register = () => {
                     localStorage.setItem('user', currentUserStringify);
                     localStorage.setItem('userToken', response.token);
                     navigate("/");
+                }).catch(err => {
+                    toast.error(`${err}`, {
+                        style: {
+                            borderRadius: "10px",
+                            background: "#333",
+                            color: "#fff"
+                        },
+                        duration: 9000
+                    })
                 });
         }
     }
 
     return (
         <>
+            <Toaster />
             <h1>Sign Up</h1>
             <p>Create Your Account.</p>
             <form onSubmit={(e) => onSubmit(e)}>
