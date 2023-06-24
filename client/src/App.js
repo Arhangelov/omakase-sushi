@@ -9,6 +9,7 @@ import { toastErrorHandler } from './utils/toastErrorHandling';
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import Reservation from './components/Reservation/Reservation';
 
 function App() {
     const [user, setUser] = useContext(Context);
@@ -29,21 +30,23 @@ function App() {
     return (
         <div className="App">
             <nav className='container-nav'>
+                <Link className='nav-logo' to='/'>Logo</Link>
                 {user.username ? (
                     <Link onClick={onLogoutHandler} className='nav-logout'>Logout</Link>
                 ) : (
                     <>
-                        <Link className='nav-logo' to='/'>Logo</Link>
                         <Link  className='nav-register' to='/register'>Register</Link>
                         <Link  className='nav-login' to='/login'>Login</Link>
                     </>
                 )}
+                <Link className='nav-reservation' to='/reservation'>Reservation</Link>
             </nav>
 
             <Routes>
                 <Route path='/' element={ <Home /> }/>
                 <Route path='/register' element={ <Register /> }/>
                 <Route path='/login' element={ <Login /> }/>
+                <Route path='/reservation' element={ <Reservation /> }/>
             </Routes>
         </div>
     );
