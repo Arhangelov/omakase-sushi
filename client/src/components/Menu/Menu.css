@@ -1,0 +1,7 @@
+.container-menu {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid: 1em / auto auto auto;
+    gap: 1rem;
+}
