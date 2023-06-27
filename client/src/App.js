@@ -9,10 +9,10 @@ import { toastErrorHandler } from './utils/toastErrorHandling';
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
-import Reservation from './components/Reservation/Reservation';
 import Profile from './components/Profile/Profile';
 import Menu from './components/Menu/Menu';
 import Cart from './components/Cart/Cart';
+import TypeOfSushi from './components/TypeOfSushi/TypeOfSushi';
 
 function App() {
     const [user, setUser] = useContext(Context);
@@ -34,7 +34,6 @@ function App() {
         <div className="App">
             <nav className='container-nav'>
                 <Link className='nav-logo' to='/'>Logo</Link>
-                <Link className='nav-reservation' to='/reservation'>Reservation</Link>
                 <Link className='nav-menu' to='/menu'>Menu</Link>
                 {user.username ? (
                     <>
@@ -54,9 +53,9 @@ function App() {
                 <Route path='/' element={ <Home /> }/>
                 <Route path='/register' element={ <Register /> }/>
                 <Route path='/login' element={ <Login /> }/>
-                <Route path='/reservation' element={ <Reservation /> }/>
                 <Route path='/profile' element={ <Profile /> }/>
                 <Route path='/menu' element={ <Menu /> }/>
+                <Route path='/menu/:type' element={ <TypeOfSushi /> }/>
                 <Route path='/cart' element={ <Cart /> }/>
             </Routes>
         </div>
