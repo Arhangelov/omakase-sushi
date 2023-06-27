@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* body, html {
+    height: 100%;
+} */
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.App {
+    color: whitesmoke;
+    min-height: 100%;
+    background-image: url("../resources/gray-background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
