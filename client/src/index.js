@@ -5,14 +5,17 @@ import App from './App';
 
 //Contexts
 import { UserContext } from "./store/UserContext";
+import { CartProvider } from './store/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <UserContext>
-                <App />
-            </UserContext>
+            <CartProvider>
+                <UserContext>
+                    <App />
+                </UserContext>
+            </CartProvider>
         </BrowserRouter>
     </React.StrictMode>
 );
