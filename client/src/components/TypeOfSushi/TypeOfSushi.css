@@ -1,10 +1,19 @@
+.container-wraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .container {
-    /* width: 80%; */
+    max-width: 1230px;
     height: 100vh;
     margin-top: 3rem;
     display: flex;
     justify-content: center;
+    align-self: center;
+    align-content: center;
     flex-wrap: wrap;
+    flex-direction: row;
     gap: 1rem;
 }
 
