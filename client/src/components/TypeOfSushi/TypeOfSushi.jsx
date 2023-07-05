@@ -5,6 +5,7 @@ import { getSushiType } from '../../services/menu.service';
 import { useCart } from '../../store/CartContext'
 
 import "./TypeOfSushi.css"
+import { ADD_ITEM_TO_CART } from '../../actions/actionTypes';
 
 const TypeOfSushi = () => {
     const { type } = useParams();
@@ -26,7 +27,7 @@ const TypeOfSushi = () => {
             price,
             qty
         }
-        dispatch({ type: "ADD", payload: cuurProduct })
+        dispatch({ type: ADD_ITEM_TO_CART, payload: cuurProduct })
     }
 
     return (
