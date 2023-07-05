@@ -3,9 +3,9 @@
     box-sizing: border-box;
 }
 
-/* body, html {
-    height: 100%;
-} */
+body {
+    height: 100vh;
+}
 
 a {
     text-decoration: none;
@@ -14,7 +14,6 @@ a {
 
 .App {
     color: whitesmoke;
-    min-height: 100%;
     background-image: url("../resources/gray-background.png");
     background-position: center;
     background-repeat: no-repeat;
