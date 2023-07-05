@@ -1,42 +1,77 @@
-import React from 'react'
-import { useCart } from "../../store/CartContext";
+import React from 'react';
+import { useCart } from '../../store/CartContext';
 
-import "./Cart.css"
-import { incrementCartItem } from '../../actions/cartActions';
+import './Cart.css';
 import { useCallback } from 'react';
 
 const Cart = () => {
-    const [ state, dispatch ] = useCart();
+  const [cart, setCart] = useCart();
 
-    const handleIncrementProduct = useCallback((productId) => {
-        dispatch(incrementCartItem({ incrementBy: 1, id: productId}));
-    }, [dispatch]);
+  const handleIncrementProduct = useCallback(
+    (productId) => {
+      const currentCartItem = cart.find((item) => item.id === productId);
+      const index = cart.indexOf(currentCartItem);
+      cart[index].qty += 1;
 
-    return (
-        <>
-            <h1>Cart Page</h1>
-            <section className='container-cart'>
-                <ol>
-                <table>
-                    {state.map((pr) =>
-                        <tr key={pr.id}>
-                            <li>
-                            <td className='container-img'> <img className='cart-img' src={pr.img} alt="product" /> </td>
-                            <td> {pr.title} </td>
-                            <td>
-                                <button onClick={()=> dispatch({ type: "DECREMENT", payload: { id: pr.id } })}>-</button>
-                                {pr.qty}
-                                <button onClick={handleIncrementProduct(pr.id)}>+</button>
-                            </td>
-                            <td> {pr.price * pr.qty} BGN </td>
-                            </li>
-                        </tr>
-                    )}
-                </table>
-                </ol>
-            </section>
-        </>
-    )
-}
+      setCart([...cart]);
+    },
+    [cart, setCart]
+  );
 
-export default Cart
+  const handleDecrementProduct = useCallback(
+    (productId) => {
+      const currentCartItem = cart.find((item) => item.id === productId);
+
+      const index = cart.indexOf(currentCartItem);
+      cart[index].qty -= 1;
+
+      if (cart[index].qty === 0) {
+        const filteredCart = cart.filter((sushi) => sushi.id !== productId);
+
+        return setCart(filteredCart);
+      }
+
+      setCart([...cart]);
+    },
+    [cart, setCart]
+  );
+
+  return (
+    <>
+      <h1>Cart Page</h1>
+      <section className="container-cart">
+        <ol>
+          <table>
+            {cart.map((sushi) => (
+              <tr key={sushi.id}>
+                <li>
+                  <td className="container-img">
+                    {' '}
+                    <img
+                      className="cart-img"
+                      src={sushi.img}
+                      alt="product"
+                    />{' '}
+                  </td>
+                  <td> {sushi.title} </td>
+                  <td>
+                    <button onClick={() => handleDecrementProduct(sushi.id)}>
+                      -
+                    </button>
+                    {sushi.qty}
+                    <button onClick={() => handleIncrementProduct(sushi.id)}>
+                      +
+                    </button>
+                  </td>
+                  <td> {sushi.price * sushi.qty} BGN </td>
+                </li>
+              </tr>
+            ))}
+          </table>
+        </ol>
+      </section>
+    </>
+  );
+};
+
+export default Cart;
