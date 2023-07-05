@@ -28,7 +28,7 @@ const reducer = (state, action) => {
             ];
         case REMOVE_ITEM_FROM_CART:
             return state.filter((product) => product.id !== action.payload.id);
-    //TODO: Need to handle INCREMENT and DECREMENT logic.
+        //TODO: Need to handle INCREMENT and DECREMENT logic.
         case INCREMENT_CART_ITEM:
             const index = state.findIndex((p) => p.id === action.payload.id);
             return [...state, state[index].qty += action.payload.incrementBy]
