@@ -8,8 +8,8 @@ import { useCallback } from 'react';
 const Cart = () => {
     const [ state, dispatch ] = useCart();
 
-    const handleIncrementProduct = useCallback(() => {
-        dispatch(incrementCartItem({ incrementBy: 1 }));
+    const handleIncrementProduct = useCallback((productId) => {
+        dispatch(incrementCartItem({ incrementBy: 1, id: productId}));
     }, [dispatch]);
 
     return (
@@ -26,7 +26,7 @@ const Cart = () => {
                             <td>
                                 <button onClick={()=> dispatch({ type: "DECREMENT", payload: { id: pr.id } })}>-</button>
                                 {pr.qty}
-                                <button onClick={handleIncrementProduct}>+</button>
+                                <button onClick={handleIncrementProduct(pr.id)}>+</button>
                             </td>
                             <td> {pr.price * pr.qty} BGN </td>
                             </li>
