@@ -1,5 +1,5 @@
 import { useReducer, createContext, useContext } from "react";
-import { DECREMENT_CART_ITEM, INCREMENT_CART_ITEM } from "../actions/actionTypes";
+import { ADD_ITEM_TO_CART, DECREMENT_CART_ITEM, INCREMENT_CART_ITEM, REMOVE_ITEM_FROM_CART } from "../actions/actionTypes";
 
 export const CartContext = createContext();
 
@@ -15,7 +15,7 @@ const initialState = [
 
 const reducer = (state, action) => {
     switch(action.type) {
-        case "ADD":
+        case ADD_ITEM_TO_CART:
             return [
                 ...state,
                 {
@@ -26,15 +26,12 @@ const reducer = (state, action) => {
                     qty: action.payload.qty
                 }
             ];
-        case "REMOVE":
+        case REMOVE_ITEM_FROM_CART:
             return state.filter((product) => product.id !== action.payload.id);
     //TODO: Need to handle INCREMENT and DECREMENT logic.
         case INCREMENT_CART_ITEM:
-            const index = state.findIndex(
-                (p) => p.id === action.payload.id
-            );
-            if(index >= 0) state[index].qty += 1
-            return [...state]
+            const index = state.findIndex((p) => p.id === action.payload.id);
+            return [...state, state[index].qty += action.payload.incrementBy]
         case DECREMENT_CART_ITEM:
             return state
         default: 
