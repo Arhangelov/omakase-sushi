@@ -8,19 +8,17 @@ const addToCart = async ({ sushiProduct, userEmail }) => {
 
     //Check if sushi already exist in the cart and updates the quantity
     if (currentSushi) {
+        console.log("Inside the check");
         const indexOfSushi = user.cart.indexOf(currentSushi);
 
-        user.cart[indexOfSushi].qty += sushiProduct.qty;
+        user.cart[indexOfSushi].qty += 1;
 
         await User.findOneAndUpdate( {email: userEmail}, {cart: user.cart}, { returnDocument: 'after' });
-        await user.save();
-        
     } else {
         user.cart.push(sushiProduct);
-
-        await user.save();
     }
-    
+
+    await user.save();
     return user.cart;
 }
 
