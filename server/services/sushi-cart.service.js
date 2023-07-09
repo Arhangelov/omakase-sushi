@@ -2,6 +2,7 @@ const Sushi = require('../models/Sushi');
 const User = require("../models/User");
 
 const addToCart = async ({ sushiData, userEmail }) => {
+    console.log(sushiData, userEmail);
     const user = await User.findOne(userEmail);
     const currentSushi = user.cart.find((s) => s.id === sushiData.id);
 
@@ -11,7 +12,7 @@ const addToCart = async ({ sushiData, userEmail }) => {
 
         user.cart[indexOfSushi].qty += sushiData.qty;
 
-        await User.findOneAndUpdate( {_id: userId}, {cart: user.cart}, { returnDocument: 'after' });
+        await User.findOneAndUpdate( {email: userEmail}, {cart: user.cart}, { returnDocument: 'after' });
         await user.save();
         
     } else {
