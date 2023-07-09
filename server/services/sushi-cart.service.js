@@ -2,8 +2,8 @@ const Sushi = require('../models/Sushi');
 const User = require("../models/User");
 
 const addToCart = async ({ sushiProduct, userEmail }) => {
-    console.log(sushiData, userEmail);
-    const user = await User.findOne(userEmail);
+    console.log(sushiProduct, userEmail);
+    const user = await User.findOne({ userEmail });
     const currentSushi = user.cart.find((s) => s.id === sushiProduct.id);
 
     //Check if sushi already exist in the cart and updates the quantity
