@@ -22,7 +22,7 @@ const TypeOfSushi = () => {
 
   const addToCartHandler = useCallback(
     (id, title, img, price) => {
-      const sushiProduct = { id, title, img, price };
+      const sushiProduct = { id, title, img, price, qty: 1 };
       addToCartService(sushiProduct, user.email);
       const currentCartItem = cart.find((item) => item.id === id);
 
