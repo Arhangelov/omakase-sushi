@@ -1,15 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSushiType } from '../../services/menu.service';
 
 import { useCart } from '../../store/CartContext';
 
 import './TypeOfSushi.css';
+import { addToCartService } from '../../services/cart.service';
+import { Context } from '../../store/UserContext';
 
 const TypeOfSushi = () => {
   const { type } = useParams();
   const [sushi, setSushi] = useState([]);
   const [cart, setCart] = useCart();
+  const [user, setUser] = useContext(Context);
 
   useEffect(() => {
     getSushiType(type)
@@ -19,6 +22,8 @@ const TypeOfSushi = () => {
 
   const addToCartHandler = useCallback(
     (id, title, img, price) => {
+      const sushiProduct = { id, title, img, price };
+      addToCartService(sushiProduct, user.email);
       const currentCartItem = cart.find((item) => item.id === id);
 
       if (currentCartItem) {
@@ -43,7 +48,7 @@ const TypeOfSushi = () => {
   );
 
   return (
-    <div className="container-wraper">
+    <div className="container-wrapper">
       <div className="container">
         {sushi.map((singleSushi) => (
           <div className="sushi-product-container" key={singleSushi._id}>
