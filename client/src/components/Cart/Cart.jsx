@@ -6,18 +6,7 @@ import { useCallback } from 'react';
 
 const Cart = () => {
   const [cart, setCart] = useCart();
-
-  const handleIncrementProduct = useCallback(
-    (productId) => {
-      const currentCartItem = cart.find((item) => item.id === productId);
-      const index = cart.indexOf(currentCartItem);
-      cart[index].qty += 1;
-
-      setCart([...cart]);
-    },
-    [cart, setCart]
-  );
-
+  
   const handleDecrementProduct = useCallback(
     (productId) => {
       const currentCartItem = cart.find((item) => item.id === productId);
@@ -35,6 +24,22 @@ const Cart = () => {
     },
     [cart, setCart]
   );
+
+  const handleIncrementProduct = useCallback(
+    (productId) => {
+      const currentCartItem = cart.find((item) => item.id === productId);
+      const index = cart.indexOf(currentCartItem);
+      cart[index].qty += 1;
+
+      setCart([...cart]);
+    },
+    [cart, setCart]
+  );
+
+  const productPrice = (sushiPrice, sushiQty) => {
+    return Number(sushiPrice) * Number(sushiQty)
+  }
+
 
   return (
     <>
@@ -63,7 +68,7 @@ const Cart = () => {
                       +
                     </button>
                   </td>
-                  <td> {sushi.price * sushi.qty} BGN </td>
+                  <td onChange={() => productPrice(sushi.price, sushi.qty)}> {} BGN </td>
                 </li>
               </tr>
             ))}
