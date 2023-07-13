@@ -1,4 +1,6 @@
-const url = "https://omakase-sushi-api.vercel.app/cart";
+// const url = "https://omakase-sushi-api.vercel.app/cart";
+const url = "http://localhost:5000/cart";
+
 
 export const addToCartService = async ( sushiProduct, userEmail ) => {
     return fetch( url + `/addtocart`, {
