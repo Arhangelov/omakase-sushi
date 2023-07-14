@@ -1,11 +1,16 @@
-import React from 'react';
+import { useCallback, useContext } from 'react';
+//Contexts
 import { useCart } from '../../store/CartContext';
-
+import { Context } from '../../store/UserContext';
+//Services
+import { updateCartService, deleteFromCartService } from '../../services/cart.service';
+//Styles
 import './Cart.css';
-import { useCallback } from 'react';
 
 const Cart = () => {
   const [cart, setCart] = useCart();
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useContext(Context)
   
   const handleDecrementProduct = useCallback(
     (productId) => {
@@ -17,12 +22,17 @@ const Cart = () => {
       if (cart[index].qty === 0) {
         const filteredCart = cart.filter((sushi) => sushi.id !== productId);
 
+        deleteFromCartService(cart[index].id, user.email);
         return setCart(filteredCart);
       }
 
       setCart([...cart]);
+
+      if(cart[index].qty !== 0) {
+        return updateCartService(cart[index], user.email);
+      }
     },
-    [cart, setCart]
+    [cart, setCart, user.email]
   );
 
   const handleIncrementProduct = useCallback(
@@ -32,8 +42,9 @@ const Cart = () => {
       cart[index].qty += 1;
 
       setCart([...cart]);
+      return updateCartService(cart[index], user.email)
     },
-    [cart, setCart]
+    [cart, setCart, user.email]
   );
 
   const productPrice = (sushiPrice, sushiQty) => {
