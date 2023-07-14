@@ -1,15 +1,19 @@
 const Sushi = require('../models/Sushi');
 const User = require("../models/User");
 
-const addToCart = async ({ sushiProduct, userEmail }) => {
+const getUserCart = async ({ userId }) => {
+    const user = await User.findById(userId);
+    return user.cart
+}
+
+const updateCart = async ({ sushiProduct, userEmail }) => {
     const user = await User.findOne({ email: userEmail });
     const currentSushi = user.cart.find((s) => s.id === sushiProduct.id);
 
     //Check if sushi already exist in the cart and updates the quantity
     if (currentSushi) {
         user.cart.remove(currentSushi);
-        currentSushi.qty += 1;
-        user.cart.push(currentSushi);
+        user.cart.push(sushiProduct);
     } else {
         user.cart.push(sushiProduct);
     }
@@ -18,14 +22,9 @@ const addToCart = async ({ sushiProduct, userEmail }) => {
     return user.cart;
 }
 
-const getUserCart = async ({ userId }) => {
-    const user = await User.findById(userId);
-    return user.cart
-}
-
-const deleteFromCart = async ({ sushiId, userId }) => {
-    const user = await User.findById(userId);
-    user.cart = user.cart.filter(s => s.id !== sushiId);
+const deleteFromCart = async ({ sushiId, userEmail }) => {
+    const user = await User.findOne({ email: userEmail });
+    user.cart = user.cart.filter(sushi => sushi.id !== sushiId);
 
     user.save();
     return user.cart;
@@ -48,7 +47,7 @@ const finishOrder = async({ userId, finalPrice }) => {
     return await user.save();
 }
 module.exports = {
-    addToCart,
+    updateCart,
     getUserCart,
     deleteFromCart,
     finishOrder
