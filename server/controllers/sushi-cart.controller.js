@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { addToCart, getUserCart, deleteFromCart, finishOrder } = require("../services/sushi-cart.service");
+const { updateCart, getUserCart, deleteFromCart, finishOrder } = require("../services/sushi-cart.service");
 
-router.post("/addtocart", (req, res) => {
-    addToCart(req.body)
+router.post("/update-cart", (req, res) => {
+    updateCart(req.body)
         .then(cart => {
             res.json(cart);
         }).catch(err => {
@@ -13,7 +13,7 @@ router.post("/addtocart", (req, res) => {
         })
 });
 
-router.post("/getcart", (req, res) => {
+router.post("/get-cart", (req, res) => {
     getUserCart(req.body)
         .then(cart => {
             res.json(cart);
@@ -25,7 +25,7 @@ router.post("/getcart", (req, res) => {
         })
 });
 
-router.post("/deletefromcart", (req, res) => {
+router.post("/delete-from-cart", (req, res) => {
     deleteFromCart(req.body)
         .then(cart => {
             res.status(200)
@@ -38,7 +38,7 @@ router.post("/deletefromcart", (req, res) => {
         })
 });
 
-router.post("/finishorder", (req, res) => {
+router.post("/finish-order", (req, res) => {
     finishOrder(req.body)
         .then(orderHistory => {
             res.json(orderHistory)
