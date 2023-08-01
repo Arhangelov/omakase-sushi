@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const Sushi = require('./Sushi');
+
 const userSchema = new mongoose.Schema({
     email : {
         type: String,
@@ -25,7 +27,15 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
 
-    cart: [],
+    cart: {
+        products: [],
+
+        totalPrice: {
+            type: Number,
+            default: 0,
+        },
+    },
+
     purchaseHistory: []
 
 });
