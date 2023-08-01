@@ -75,7 +75,7 @@ const loginUserReqValidation = [
             // Checking if the compared passwords are equal.
             const passwordCompare = bcrypt.compareSync(password, user.password);
             // Rejecting the request if the passwords are not equal.
-            if (!passwordCompare) return Promise.reject("Invalid password.");
+            if (passwordCompare) return Promise.reject("Invalid password.");
         })
 ];
 
