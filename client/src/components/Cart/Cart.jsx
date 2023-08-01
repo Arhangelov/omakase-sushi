@@ -1,16 +1,28 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 //Contexts
 import { useCart } from '../../store/CartContext';
 import { Context } from '../../store/UserContext';
 //Services
-import { updateCartService, deleteFromCartService } from '../../services/cart.service';
+import { updateCartService, deleteFromCartService, getCartService } from '../../services/cart.service';
 //Styles
 import './Cart.css';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const [cart, setCart] = useCart();
+  const [totalPrice, setTotalPrice] = useState(0);
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useContext(Context)
+  const [user, setUser] = useContext(Context);
+  const navigate = useNavigate();
+
+
+useEffect(() => {
+  getCartService(user.email)
+    .then((cart) => {
+      setCart(cart.products);
+      setTotalPrice(cart.totalPrice);
+    })
+}, [user.email, setCart])
   
   const handleDecrementProduct = useCallback(
     (productId) => {
@@ -29,7 +41,10 @@ const Cart = () => {
       setCart([...cart]);
 
       if(cart[index].qty !== 0) {
-        return updateCartService(cart[index], user.email);
+        updateCartService(cart[index], user.email)
+          .then(cart => {
+            return setTotalPrice(cart.totalPrice);
+          })
       }
     },
     [cart, setCart, user.email]
@@ -42,15 +57,17 @@ const Cart = () => {
       cart[index].qty += 1;
 
       setCart([...cart]);
-      return updateCartService(cart[index], user.email)
+      updateCartService(cart[index], user.email)
+        .then(cart => {
+          return setTotalPrice(cart.totalPrice);
+        })
     },
     [cart, setCart, user.email]
   );
 
-  const productPrice = (sushiPrice, sushiQty) => {
-    return Number(sushiPrice) * Number(sushiQty)
-  }
-
+  const onFinishOrder = useCallback(() => {
+    navigate("/finished-order");
+  },[navigate]); 
 
   return (
     <>
@@ -58,7 +75,7 @@ const Cart = () => {
       <section className="container-cart">
         <ol>
           <table>
-            {cart.map((sushi) => (
+            {cart?.map((sushi) => (
               <tr key={sushi.id}>
                 <li>
                   <td className="container-img">
@@ -79,11 +96,18 @@ const Cart = () => {
                       +
                     </button>
                   </td>
-                  <td onChange={() => productPrice(sushi.price, sushi.qty)}> {} BGN </td>
+                  <td> {(sushi.qty * sushi.price).toFixed(2)} BGN </td>
                 </li>
               </tr>
             ))}
           </table>
+            <hr />
+            {cart === undefined || cart.length !== 0 ? (
+              <>
+                <h3>Total{" "}{ totalPrice }</h3>
+                <button onClick={onFinishOrder}>Finish Order</button>
+              </>
+            ): ""}
         </ol>
       </section>
     </>
