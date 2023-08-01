@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
-const getHistoryOfOrders = async (userId) => {
-    const user = await User.findById(userId);
+const getHistoryOfOrders = async (userEmail) => {
+    const user = await User.findOne({ email: userEmail });
     return user.purchaseHistory;
 }
 
