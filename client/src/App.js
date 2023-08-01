@@ -14,6 +14,7 @@ import Profile from './components/Profile/Profile';
 import Menu from './components/Menu/Menu';
 import Cart from './components/Cart/Cart';
 import TypeOfSushi from './components/TypeOfSushi/TypeOfSushi';
+import FinishedOrder from './components/FinishedOrder/FinishedOrder';
 import './App.css';
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/menu/:type" element={<TypeOfSushi />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path='/finished-order' element={<FinishedOrder/>} />
       </Routes>
     </div>
   );
