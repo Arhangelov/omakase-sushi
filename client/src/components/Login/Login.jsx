@@ -13,7 +13,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user.username) navigate("/");
-    }, [navigate])
+    }, [navigate, user.username])
 
     const { email, password } = formData;
     const onChange = (e) => {
