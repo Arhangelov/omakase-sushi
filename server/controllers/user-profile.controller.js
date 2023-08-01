@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const { getHistoryOfOrders, rePurchaseOrder } = require("../services/user-profile.service");
 
-router.get("/:userId", (req, res) => {
-    getHistoryOfOrders(req.params.userId)
-        .then(orders => {
-            res.json(orders);
+router.post("/get-purchase-history", (req, res) => {
+    getHistoryOfOrders(req.body)
+        .then(purchaseHistory => {
+            res.json(purchaseHistory);
         })
 });
 
-router.post("/repurchaseorder", (req, res) => {
+router.post("/re-purchase-order", (req, res) => {
     rePurchaseOrder(req.body)
         .then(cart => {
             res.json(cart);
