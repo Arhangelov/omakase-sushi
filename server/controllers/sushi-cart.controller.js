@@ -1,6 +1,18 @@
 const router = require('express').Router();
 const { updateCart, getUserCart, deleteFromCart, finishOrder } = require("../services/sushi-cart.service");
 
+router.post("/get-cart", (req, res) => {
+    getUserCart(req.body)
+        .then(cart => {
+            res.json(cart);
+        }).catch(err => {
+            return res.status(400).send({
+                message: `${err.message}`,
+                type: "ERROR"
+            });
+        })
+});
+
 router.post("/update-cart", (req, res) => {
     updateCart(req.body)
         .then(cart => {
@@ -13,17 +25,6 @@ router.post("/update-cart", (req, res) => {
         })
 });
 
-router.post("/get-cart", (req, res) => {
-    getUserCart(req.body)
-        .then(cart => {
-            res.json(cart);
-        }).catch(err => {
-            return res.status(400).send({
-                message: `${err.message}`,
-                type: "ERROR"
-            });
-        })
-});
 
 router.post("/delete-from-cart", (req, res) => {
     deleteFromCart(req.body)
@@ -40,8 +41,8 @@ router.post("/delete-from-cart", (req, res) => {
 
 router.post("/finish-order", (req, res) => {
     finishOrder(req.body)
-        .then(orderHistory => {
-            res.json(orderHistory)
+        .then(purchaseHistory => {
+            res.json(purchaseHistory)
         }).catch(err => {
             return res.status(400).send({
                 message: `${err.message}`,
