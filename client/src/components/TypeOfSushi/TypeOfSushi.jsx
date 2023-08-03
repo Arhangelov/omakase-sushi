@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useCart } from '../../store/CartContext';
 import { Context } from '../../store/UserContext';
 
-import { getSushiType } from '../../services/menu.service';
-import { updateCartService } from '../../services/cart.service';
+import { getSushiType } from '../../services/menuService';
+import { updateCartService } from '../../services/cartService';
 
 import './TypeOfSushi.css';
 
