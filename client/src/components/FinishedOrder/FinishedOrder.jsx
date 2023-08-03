@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../../store/UserContext'
 import { useCart } from '../../store/CartContext';
 
-import { finishOrderService, getCartService } from '../../services/cart.service';
+import { finishOrderService, getCartService } from '../../services/cartService';
 
 const FinishedOrder = () => {
     const [user, setUser] = useContext(Context);

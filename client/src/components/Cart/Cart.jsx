@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useCart } from '../../store/CartContext';
 import { Context } from '../../store/UserContext';
 //Services
-import { updateCartService, deleteFromCartService, getCartService } from '../../services/cart.service';
+import { updateCartService, deleteFromCartService, getCartService } from '../../services/cartService';
 //Styles
 import './Cart.css';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,10 @@ useEffect(() => {
       if (cart[index].qty === 0) {
         const filteredCart = cart.filter((sushi) => sushi.id !== productId);
 
-        deleteFromCartService(cart[index].id, user.email);
+        deleteFromCartService(cart[index].id, user.email)
+          .then(cart => {
+            setTotalPrice(cart.totalPrice);
+          })
         return setCart(filteredCart);
       }
 
@@ -104,7 +107,7 @@ useEffect(() => {
             <hr />
             {cart === undefined || cart.length !== 0 ? (
               <>
-                <h3>Total{" "}{ totalPrice }</h3>
+                <h3>Total{" "}{ totalPrice.toFixed(2) } BGN</h3>
                 <button onClick={onFinishOrder}>Finish Order</button>
               </>
             ): ""}
