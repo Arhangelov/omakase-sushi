@@ -3,7 +3,7 @@ import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 import { Context } from './store/UserContext';
-import { logoutService } from './services/userAuth.service';
+import { logoutService } from './services/userAuthService';
 import { toastErrorHandler } from './utils/toastErrorHandling';
 
 //Pages for routing
