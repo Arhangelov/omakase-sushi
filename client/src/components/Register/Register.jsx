@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Context } from "../../store/UserContext";
 import { useNavigate, Link } from 'react-router-dom';
-import { registerService } from '../../services/userAuth.service';
+import { registerService } from '../../services/userAuthService';
 import { Toaster } from "react-hot-toast";
 import { toastErrorHandler } from '../../utils/toastErrorHandling';
 

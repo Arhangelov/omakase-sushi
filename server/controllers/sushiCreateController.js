@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { validationResult } = require("express-validator");
-const { sushiAddReqValidation } = require("../middleware/sushi-create.validation")
-const { addSushi } = require('../services/sushi-crud.service');
+const { sushiAddReqValidation } = require("../middleware/sushiCreateValidation")
+const { addSushi } = require('../services/sushiCrudService');
 
 
 router.post('/', sushiAddReqValidation, (req, res) => {

@@ -18,7 +18,7 @@ const updateCart = async ({ sushiProduct, userEmail }) => {
         user.cart.products.push(sushiProduct);
     }
 
-    //Creating variable for Total Price and then push it to the cart
+    //Creating variable for Total Price and then assign it to the cart.totalPrice
     let totalPrice = user.cart.products.reduce((total, cartItem) => {
         return total + cartItem.price * cartItem.qty
     }, 0).toFixed(2);
@@ -31,7 +31,13 @@ const updateCart = async ({ sushiProduct, userEmail }) => {
 
 const deleteFromCart = async ({ sushiId, userEmail }) => {
     const user = await User.findOne({ email: userEmail });
-    user.cart = user.cart.filter(sushi => sushi.id !== sushiId);
+    user.cart.products = user.cart.products.filter(sushi => sushi.id !== sushiId);
+
+    let totalPrice = user.cart.products.reduce((total, cartItem) => {
+        return total + cartItem.price * cartItem.qty
+    }, 0).toFixed(2);
+
+    user.cart.totalPrice = totalPrice;
 
     user.save();
     return user.cart;

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { updateCart, getUserCart, deleteFromCart, finishOrder } = require("../services/sushi-cart.service");
+const { updateCart, getUserCart, deleteFromCart, finishOrder } = require("../services/sushiCartService");
 
 router.post("/get-cart", (req, res) => {
     getUserCart(req.body)
