@@ -7,7 +7,7 @@ import { useCart } from '../../store/CartContext';
 import { finishOrderService, getCartService } from '../../services/cartService';
 
 const FinishedOrder = () => {
-    const [user, setUser] = useContext(Context);
+    const [user] = useContext(Context);
     const [cart, setCart] = useCart();
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();

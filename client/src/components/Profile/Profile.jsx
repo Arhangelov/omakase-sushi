@@ -4,7 +4,7 @@ import { Context } from '../../store/UserContext'
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-    const [user, setUser] = useContext(Context);
+    const [user] = useContext(Context);
     const [purchaseHistory, setPurchaseHistory] = useState([]);
     const navigate = useNavigate();
 
