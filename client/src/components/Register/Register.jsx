@@ -17,7 +17,7 @@ const Register = () => {
     });
     useEffect(() => {
         if (user.username) navigate("/");
-    }, [navigate])
+    }, [navigate, user.username])
 
     const { email, username, password, confirmPassword, address } = formData;
     const onChange = (e) => {
