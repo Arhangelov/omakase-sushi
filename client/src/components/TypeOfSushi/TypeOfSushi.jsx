@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import { useCart } from '../../store/CartContext';
 import { Context } from '../../store/UserContext';
@@ -46,14 +46,17 @@ const TypeOfSushi = () => {
       <div className="container">
         {sushi.map((singleSushi) => (
           <div className="sushi-product-container" key={singleSushi._id}>
-            <img
-              className="productImg"
-              src={singleSushi.imageUrl}
-              alt="Sushi Product"
-            />
-            <h3>{singleSushi.title}</h3>
-            <p>{singleSushi.portion}</p>
-            <p>{singleSushi.price} BGN</p>
+            {/* Goes to a specific details page when click on the card */}
+            <Link to={`/menu/details/${singleSushi._id}`}>
+              <img
+                className="productImg"
+                src={singleSushi.imageUrl}
+                alt="Sushi Product"
+                />
+              <h3>{singleSushi.title}</h3>
+              <p>{singleSushi.portion}</p>
+              <p>{singleSushi.price} BGN</p>
+            </Link>
             <button
               onClick={() =>
                 addToCartHandler(
@@ -61,9 +64,9 @@ const TypeOfSushi = () => {
                   singleSushi.title,
                   singleSushi.imageUrl,
                   singleSushi.price
-                )
-              }
-            >
+                  )
+                }
+                >
               Cart
             </button>
           </div>
