@@ -1,0 +1,367 @@
+.header-home {
+    position: absolute;
+    top:25%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 9em 0;
+    margin-left: 4em;
+}
+
+.header-shadow {
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    padding: 3rem;
+}
+
+.header-home > h1 {
+    font-size: 3.6em;
+    padding-bottom: 3rem;
+    color: rgb(252, 250, 242);
+}
+
+.header-shadow > p {
+    padding-bottom: 2em;
+    text-shadow: 1px 1px black;
+}
+
+.header-shadow > a {
+    background-color: rgb(124, 0, 29);
+    border-radius: .6rem;
+    padding: .5em 1em;
+    color: rgb(252, 250, 242); 
+}
+
+.header-home > a:hover {
+    background-color: rgb(190, 18, 59);
+    color: white;
+    cursor: pointer;
+}
+
+.sushi-video {
+    width: 100%;
+    position: relative;
+    top: -6rem;
+    left: 0;
+    z-index: -1;
+}
+
+video {
+    object-fit: cover;
+    object-position: left;
+}
+
+.bg-content {
+    background-color: rgb(11, 16, 19);
+}
+
+.scroll-down {
+    position: relative;
+    top:-4.5rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: rgb(252, 250, 242);
+    font-size: 36px;
+}
+
+.container-sub-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16em;
+    /* background-color: rgb(11, 16, 19);
+    padding: 9rem 0; */
+}
+
+.img-container > img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.content {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.content > h1 {
+    color: rgb(252, 250, 242); 
+    margin-bottom: 1.5em;
+}
+
+.content > p {
+    margin-bottom: 2em;
+}
+
+.about-btn {
+    padding: .5rem 1rem;
+    border: 1px solid rgb(252, 250, 242);
+    margin-right: 1rem;
+    border-radius: .2rem;
+}
+
+.container-popular {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 9em;
+}
+
+.container-popular > p {
+    margin-top: 6em;
+}
+
+.container-popular > h2 {
+    margin-bottom: 6em;
+}
+
+.popular-products {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 6rem;
+}
+
+.product-card{
+    display: flex;
+    flex-direction: column;
+    width: 17em;
+    border: 2px solid rgb(223, 119, 21);
+    border-radius: 1em;
+    padding: 1rem;
+}
+
+.product-card:hover {
+    animation: .2s ease-in 0s forwards levitate-card;
+}
+
+@keyframes levitate-card {
+    0% {
+        position: relative;
+        top: 0;
+    }
+    25% {
+        position: relative;
+        top: -.3rem;
+        box-shadow: 0 0 20px rgba(243, 132, 29, 0.11);
+    }
+    50% {
+        position: relative;
+        top: -.6rem;
+        box-shadow: 0 0 40px rgba(243, 132, 29, 0.11);
+    }
+    75% {
+        position: relative;
+        top: -.9rem;
+        box-shadow: 0 0 60px rgba(243, 132, 29, 0.11);
+    }
+    100% {
+        position: relative;
+        top: -1.2rem;
+        box-shadow: 0 0 80px rgba(243, 132, 29, 0.11);
+    }
+}
+
+.productImg {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: .5em .5em 0 0em;
+    margin-bottom: 1em;
+}
+
+.product-card > p:nth-child(2) {
+    margin-bottom: 2em;
+    color: rgb(250, 173, 100);
+}
+
+.product-card > p:nth-child(3) {
+    color: rgba(252, 250, 250, 0.6);
+}
+
+.price-and-buy {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-and-buy > a {
+    border: 1px solid rgba(252, 250, 242, 0.753);
+    padding: .2rem 1rem;
+    border-radius: .2rem;
+}
+
+
+.price-and-buy > button {
+    background-color: transparent;
+    border: 1px solid rgba(252, 250, 242, 0.753);
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+}
+
+.customer-container {
+    padding: 4em;
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-container > p {
+    color: rgba(252, 250, 242, 0.534);
+    font-size: 12px;
+    margin-bottom: 9rem;
+}
+
+.reviews-container {
+    display: flex;
+    gap: 6rem;
+    flex-wrap: wrap;
+    margin-bottom: 9em;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.review > i {
+    color: rgb(252, 250, 242);
+    margin-bottom: 1rem;
+}
+
+.comment {
+    margin-bottom: 1rem;
+}
+
+.customer-pic {
+    margin-bottom: .5rem;
+    border-radius: 50%;
+}
+
+.customer-pic > img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%
+}
+
+.customer-info p {
+    color: rgba(252, 250, 242, 0.753);
+    font-size: 12px;
+}
+
+.book-table-container {
+    display: flex;
+    padding: 0 4rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4rem;
+}
+
+.book-table-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 9rem;
+}
+
+.book-table-content > p:nth-child(2) {
+    margin-bottom: 4rem;
+    color: rgba(252, 250, 242, 0.753);
+}
+
+.book-table-content > p:nth-child(3),
+.book-table-content > p:nth-child(4) {
+    font-size: 1.2rem;
+}
+
+.book-table-content > p:nth-child(4) {
+    margin-bottom: 4rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.cta-buttons > a {
+    border: 1px solid rgb(252, 250, 242);
+    padding: .2rem 1rem;
+    border-radius: .2rem;
+}
+
+.book-table-img {
+    width: 35%;
+}
+
+.book-table-img > img {
+    width: 100%;
+}
+
+.faq-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    padding: 9rem 3rem;
+}
+
+.faq-container > header {
+    text-align: center;
+    border-bottom: 2px solid rgba(252, 250, 242, 0.384);
+    width: 100%;
+}
+
+.faq-container > header > h2 {
+    margin-bottom: 1rem;
+}
+
+.faq-container > header > p {
+    padding-bottom: 3rem;
+}
+
+.questions {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.question {
+    padding: 1rem 0;
+    border-bottom: 2px solid rgba(252, 250, 242, 0.384);
+}
+
+.question > p:nth-child(1) {
+    margin-bottom: 1rem;
+}
+
+.question > p:nth-child(2) {
+    font-size: 12px;
+}
+
+.contact-container {
+    text-align: center;
+    padding-top: 3rem;
+}
+
+.contact-container > h4 {
+    padding-bottom: 1rem;
+}
+
+.contact-container > p {
+    padding-bottom: 2rem;
+}
+
+.contact-container > a {
+    border: 1px solid rgb(252, 250, 242);
+    padding: .2rem 1rem;
+    border-radius: .2rem;
+}
+
