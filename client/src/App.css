@@ -1,22 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 *{
     margin: 0;
     box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
+    background-color: rgb(11, 16, 19);
+}
+
+.nav-logo {
+    font-family: 'Catavalo SemiBold';
+    color: rgb(252, 250, 242);
+}
+
+.container-header > h1 {
+    text-transform: uppercase;
+    padding-left: 4rem;
+}
+
+.nav-home, .nav-about, .nav-profile, .nav-register, .nav-login {
+    padding-bottom: .9rem;
+}
+
+.nav-profile {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.nav-home:hover, .nav-about:hover,.nav-logout:hover, .nav-profile:hover, .nav-register:hover, .nav-login:hover {
+    padding-bottom: .45rem;
+    border-bottom: 2px solid rgba(252, 250, 242, 0.384);
+} 
+
+.nav-about .nav-menu, .nav-profile, .nav-register, .nav-login, .nav-cart {
+    color: rgb(252, 250, 242);
+}
+
+.container-header {
+    display: flex;
+    border-bottom: 2px solid rgba(252, 250, 242, 0.144);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-nav {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+nav > ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2em;
+    margin-top: .66em;
+    margin-bottom: .66em;
+}
+
+.nav-menu {
+    border: 1px solid rgba(203, 27, 68, 0.795);
+    padding: .5rem 2rem;
+    border-radius: .2rem;
+    font-weight: 400;
+}
+
+.nav-menu:hover {
+    animation: .2s ease-in 0s forwards menu-button;
+}
+
+@keyframes menu-button{
+    0% {
+        background-color: rgba(203, 27, 68, 0.274);
+    }
+
+    25% {
+        background-color: rgba(203, 27, 68, 0.356);
+    }
+
+    50% {
+        background-color: rgba(203, 27, 68, 0.432);
+    }
+
+    75% {
+        background-color: rgba(203, 27, 68, 0.534);
+    }
+
+    100% {
+        background-color: rgba(203, 27, 68, 0.795);
+    }
+}
+
+.nav-left {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-left > ul {
+    padding-right: 4rem;
+    align-self: flex-end;
+}
+
+.nav-cart {
+    font-size: 1.5em;
+}
+
+ul li {
+    padding: .65em;
+}
+
+li > a {
+    text-decoration: none;
+    font-size: 10.7px;
+    letter-spacing: .2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Catavalo;
+    letter-spacing: .3rem;
+    color: rgb(252, 250, 242);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2.3rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.8rem; }
+h5 { font-size: 1.6rem; }
+h6 { font-size: 1.4rem; }
+
+p, a, label, button, input {
+    font-family: Poppins, sans-serif;
+    color: rgb(252, 250, 242);
 }
 
 a {
     text-decoration: none;
-    color: whitesmoke;
+    color: rgb(252, 250, 242);
 }
 
+
 .App {
-    color: whitesmoke;
-    background-image: url("../resources/gray-background.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    color: rgb(11, 16, 19);
+    box-shadow: inset 3em 9em 9em black ;
+
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 4rem;
+    background-color: rgba(37, 55, 70, 0.397);
+}
+
+.nav-subscribe-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 3rem;
+    border-bottom: 2px solid rgba(252, 250, 242, 0.384);
+}
+
+.logo-nav-container > h2 {
+    padding-bottom: .5rem;
+}
+
+.footer-navigation {
+    display: flex;
+    gap: 1rem;
+    font-size: 14px;
+}
+
+.footer-navigation > a {
+    padding-bottom: .2rem;
+}
+
+.footer-navigation > a:hover {
+    padding-bottom: .1rem;
+    border-bottom: 2px solid rgba(252, 250, 242, 0.384);
+}
+
+.subscribe-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.subscribe {
+    display: flex;
+    flex-direction: column;
+}
+
+.subscribe > label {
+    padding-bottom: .3rem;
+    color: rgb(252, 250, 242);
+    font-size: 14px;
+}
+
+.subscribe > div > input {
+    margin-right: .5rem;
+}
+
+.subscribe > div > button,
+.subscribe > div > input {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(252, 250, 242);
+    border: 1px solid rgb(252, 250, 242);
+    padding: .2rem 1rem;
+    border-radius: .2rem;
+}
+
+.subscribe-container > p {
+    font-size: 12px;
+    color: rgba(252, 250, 242, 0.736);
+}
+
+.policy-rights-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 12px;
+    padding-top: 1rem;
+}
+
+.policy-container {
+    display: flex;
+    gap: .5rem;
+    text-decoration: underline;
+    text-decoration-color: rgba(252, 250, 242, 0.384);
 }
