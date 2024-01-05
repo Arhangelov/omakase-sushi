@@ -1,7 +1,11 @@
 const Sushi = require('../models/Sushi');
 
 const getType = async (typeOfSushi) => {
-    return  Sushi.find({ type: typeOfSushi.toLowerCase() });
+    if(typeOfSushi == "all") {
+        return Sushi.find({})
+    } else {
+        return  Sushi.find({ type: typeOfSushi.toLowerCase() });
+    }
 };
 
 const getSushiDetails = async (id) => {
