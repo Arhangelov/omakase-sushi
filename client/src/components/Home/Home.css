@@ -11,7 +11,6 @@
 }
 
 .header-shadow {
-    /* background-color: rgba(0, 0, 0, 0.4); */
     padding: 3rem;
 }
 
@@ -71,8 +70,6 @@ video {
     justify-content: center;
     align-items: center;
     gap: 16em;
-    /* background-color: rgb(11, 16, 19);
-    padding: 9rem 0; */
 }
 
 .img-container > img {

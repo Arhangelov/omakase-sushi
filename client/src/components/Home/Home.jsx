@@ -46,8 +46,6 @@ const Home = () => {
             .catch((error) => console.log(error.message));
     }, [])
 
-    console.log(popProducts);
-    
     const addToCartHandler = useCallback(
         (id, title, img, price) => {
             const sushiProduct = { id, title, img, price, qty: 1 };
