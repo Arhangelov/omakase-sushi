@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 //Contexts
 import { useCart } from '../../store/CartContext';
 import { Context } from '../../store/UserContext';
@@ -7,6 +7,9 @@ import { updateCartService, deleteFromCartService, getCartService } from '../../
 //Styles
 import './Cart.css';
 import { useNavigate } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
+
+import SusiSahimi from "../../resources/sushi-sashimi-parallax.jpg"
 
 const Cart = () => {
   const [cart, setCart] = useCart();
@@ -24,6 +27,7 @@ useEffect(() => {
     })
 }, [user.email, setCart])
   
+  //Decrement product quantity in the cart
   const handleDecrementProduct = useCallback(
     (productId) => {
       const currentCartItem = cart.find((item) => item.id === productId);
@@ -53,6 +57,7 @@ useEffect(() => {
     [cart, setCart, user.email]
   );
 
+    //Increment product quantity in the cart
   const handleIncrementProduct = useCallback(
     (productId) => {
       const currentCartItem = cart.find((item) => item.id === productId);
@@ -72,48 +77,73 @@ useEffect(() => {
     navigate("/finished-order");
   },[navigate]); 
 
+  let ref = useRef(null);
+  let { scrollYProgress } = useScroll({
+      target: ref,
+      offset: ["start start", "end start"],
+  });
+  let y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  let opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
   return (
-    <>
+    <div className="cart-page-container">
       <h1>Cart Page</h1>
-      <section className="container-cart">
-        <ol>
-          <table>
-            {cart?.map((sushi) => (
-              <tr key={sushi.id}>
-                <li>
-                  <td className="container-img">
-                    {' '}
-                    <img
-                      className="cart-img"
-                      src={sushi.img}
-                      alt="product"
-                    />{' '}
-                  </td>
-                  <td> {sushi.title} </td>
-                  <td>
-                    <button onClick={() => handleDecrementProduct(sushi.id)}>
-                      -
-                    </button>
-                    {sushi.qty}
-                    <button onClick={() => handleIncrementProduct(sushi.id)}>
-                      +
-                    </button>
-                  </td>
-                  <td> {(sushi.qty * sushi.price).toFixed(2)} BGN </td>
-                </li>
-              </tr>
-            ))}
-          </table>
-            <hr />
+      <motion.div className="cart-img" style={{ y, opacity }}>
+        <img src={SusiSahimi} alt="about-heading"/>
+      </motion.div>
+      <div className="cart-wrapper">
+        <section className="container-cart">
+            <div className="cart-columns">
+              {cart?.map((sushi) => (
+                <div className="cart-row" key={sushi.id}>
+                    <div className="container-img">
+                      {' '}
+                      <img
+                        className="product-img"
+                        src={sushi.img}
+                        alt="product"
+                      />{' '}
+                    </div>
+                    <p> {sushi.title} </p>
+                    <div className='cart-buttons'>
+                      <button onClick={() => handleDecrementProduct(sushi.id)}>
+                        -
+                      </button>
+                      <p>{sushi.qty}</p>
+                      <button onClick={() => handleIncrementProduct(sushi.id)}>
+                        +
+                      </button>
+                    </div>
+                    <p> ${(sushi.qty * sushi.price).toFixed(2)}</p>
+                </div>
+              ))}
+            </div>
             {cart === undefined || cart.length !== 0 ? (
-              <>
-                <h3>Total{" "}{ totalPrice.toFixed(2) } BGN</h3>
+              <div className='final-price-container'>
+                <div className="sub-total">
+                  <div>
+                    <p> Sub-total</p>
+                    <p>{cart.length} items</p>
+                  </div>
+                  <div>
+                    <p>${ (totalPrice - 3.00).toFixed(2) }</p>
+                  </div>
+                </div>
+                <div className="delivery">
+                  <div>
+                    <p>Delivery tax</p>
+                  </div>
+                  <div>
+                    <p>${ Number(3.00).toFixed(2) }</p>
+                  </div>
+                </div>
+                <h3>Total{" "}${ totalPrice.toFixed(2) }</h3>
                 <button onClick={onFinishOrder}>Finish Order</button>
-              </>
+              </div>
             ): ""}
-        </ol>
-      </section>
-    </>
+        </section>
+      </div>
+    </div>
   );
 };
 
