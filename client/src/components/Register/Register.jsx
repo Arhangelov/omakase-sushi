@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from "../../store/UserContext";
 import { useNavigate, Link } from 'react-router-dom';
 import { registerService } from '../../services/userAuthService';
-import { Toaster } from "react-hot-toast";
 import { toastErrorHandler } from '../../utils/toastErrorHandling';
+
+import "./Register.css";
+import SushiVid from "../../resources/sushi-vid.mp4";
 
 const Register = () => {
     const [user, setUser] = useContext(Context);
@@ -56,32 +58,31 @@ const Register = () => {
     }
 
     return (
-        <>
-            <Toaster />
+        <div className='register-page-container'>
+            <video width="100%" height="900" autoPlay muted loop>
+                <source src={SushiVid} type="video/mp4" />
+                <source src={SushiVid} type="video/webm" />
+            </video>
             <h1>Sign Up</h1>
-            <p>Create Your Account.</p>
-            <form onSubmit={(e) => onSubmit(e)}>
-                <label htmlFor="email">Email</label>
-                <input onChange={onChange} type="email" name="email" />
-
-                <label htmlFor="username">Username</label>
-                <input onChange={onChange} type="text" name="username" />
-
-                <label htmlFor="password">Password</label>
-                <input onChange={onChange} type="password" name="password" />
-
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input onChange={onChange} type="password" name="confirmPassword" />
-
-                <label htmlFor="address">Address</label>
-                <input onChange={onChange} type="text" name="address" />
-
-                <input onChange={onChange} type="submit" value="Register" />
-            </form>
-            <p>
-                Already have an account? <Link to="/login">Sign In</Link>
-            </p>
-        </>
+            <div className="register-container">
+                <form onSubmit={(e) => onSubmit(e)}>
+                    <label htmlFor="email">Email</label>
+                    <input onChange={onChange} type="email" name="email" />
+                    <label htmlFor="username">Username</label>
+                    <input onChange={onChange} type="text" name="username" />
+                    <label htmlFor="password">Password</label>
+                    <input onChange={onChange} type="password" name="password" />
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input onChange={onChange} type="password" name="confirmPassword" />
+                    <label htmlFor="address">Address</label>
+                    <input onChange={onChange} type="text" name="address" />
+                    <input onChange={onChange} type="submit" value="Register" />
+                </form>
+                <p>
+                    Already have an account? <Link to="/login">Sign In</Link>
+                </p>
+            </div>
+        </div>
     )
 }
 

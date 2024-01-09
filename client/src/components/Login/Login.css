@@ -1,0 +1,65 @@
+.login-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 6rem 0;
+}
+
+.login-page-container > video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    filter: blur(1.5rem);
+    object-position: 0 -1700px;
+}
+
+.login-container {
+    width: 430px;
+    background-color: rgb(23, 32, 38);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    padding: 2rem;
+}
+
+.login-container > form {
+    display: flex;
+    flex-direction: column;
+}
+
+[name="email"] ,
+[name="password"] {
+    margin-bottom: 2rem;
+}
+
+[type="submit"] {
+    background-color: transparent;
+    border: 1px solid rgb(252, 250, 242);
+    padding: .5rem 1rem;
+    border-radius: .2rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+[type="submit"]:hover {
+    background-color: rgb(252, 250, 242);
+    color: rgb(24, 32, 38);
+    font-weight: 600;
+}
+
+.login-container > p {
+    font-size: .8rem;
+}
+
+.login-container > p > a {
+    color: rgb(223, 119, 21);
+}
+
+.login-container > p > a:hover {
+    color: rgb(255, 147, 46);
+}

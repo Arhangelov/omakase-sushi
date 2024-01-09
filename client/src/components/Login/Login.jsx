@@ -3,6 +3,9 @@ import { loginService } from '../../services/userAuthService';
 import { Context } from '../../store/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 
+import "./Login.css";
+import SushiVid from "../../resources/sushi-vid.mp4"
+
 const Login = () => {
     const [user, setUser] = useContext(Context);
     const navigate = useNavigate();
@@ -44,21 +47,25 @@ const Login = () => {
     }
 
     return (
-        <>
+        <div className='login-page-container'>
+            <video width="100%" height="900" autoPlay muted loop>
+                <source src={SushiVid} type="video/mp4" />
+                <source src={SushiVid} type="video/webm" />
+            </video>
             <h1>Sign In</h1>
-            <form onSubmit={onSubmit}>
-                <label htmlFor="email">Email</label>
-                <input onChange={onChange} type="email" name="email" />
-
-                <label htmlFor="password">Password</label>
-                <input onChange={onChange} type="password" name="password" />
-
-                <input type="submit" value="Sign In" />
-            </form>
-            <p>
-                If you don't have an account <Link to="/register">register here</Link>.
-            </p>
-        </>
+            <div className="login-container">
+                <form onSubmit={onSubmit}>
+                    <label htmlFor="email">Email</label>
+                    <input onChange={onChange} type="email" name="email" />
+                    <label htmlFor="password">Password</label>
+                    <input onChange={onChange} type="password" name="password" />
+                    <input type="submit" value="Sign In" />
+                </form>
+                <p>
+                    If you don't have an account <Link to="/register">register here</Link>.
+                </p>
+            </div>
+        </div>
     )
 }
 
