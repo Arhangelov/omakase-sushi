@@ -1,11 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 import { Context } from './store/UserContext';
+import { useCart } from './store/CartContext';
 import { logoutService } from './services/userAuthService';
 import { toastErrorHandler } from './utils/toastErrorHandling';
 import { CgProfile } from "react-icons/cg";
+import { IoCartOutline } from "react-icons/io5";
 
 //Pages for routing
 import Home from './components/Home/Home';
@@ -18,12 +20,13 @@ import Cart from './components/Cart/Cart';
 import TypeOfSushi from './components/TypeOfSushi/TypeOfSushi';
 import Details from './components/Details/Details';
 import FinishedOrder from './components/FinishedOrder/FinishedOrder';
+
 import './App.css';
 
-import { IoCartOutline } from "react-icons/io5";
-
 function App() {
-  const [user, setUser] = useContext(Context);
+  const [ cart, ] = useCart();
+  const [ cartIndicator, setCartIndicator ] = useState(0);
+  const [ user, setUser ] = useContext(Context);
   const navigate = useNavigate();
 
   const onLogoutHandler = (e) => {
@@ -39,6 +42,13 @@ function App() {
         toastErrorHandler(err);
       });
   };
+
+  useEffect(() => {
+    setCartIndicator(
+      cart.reduce((totalQuantity, sushi) => totalQuantity + sushi.qty, 0)
+    )
+  }, [cart])
+
   return (
     <div className="App">
       <header className='container-header'>
@@ -97,6 +107,13 @@ function App() {
                 <li>
                   <Link className="nav-cart" to="/cart">
                     <IoCartOutline />
+                    {cartIndicator !== 0 & user.email !== "" ? (
+                      <div className='cart-indicator'>
+                        <p>{cartIndicator}</p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </Link>
                 </li>
               </ul>

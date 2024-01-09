@@ -105,7 +105,24 @@ nav > ul {
 }
 
 .nav-cart {
+    position: relative;
     font-size: 1.5em;
+}
+
+.cart-indicator {
+    position: absolute;
+    top: -30%;
+    left: 60%;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(117, 20, 31);
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    letter-spacing: normal;
+    font-size: .6rem;
 }
 
 ul li {
@@ -153,7 +170,7 @@ a {
     flex-wrap: wrap;
     flex-direction: column;
     padding: 4rem;
-    background-color: rgba(37, 55, 70, 0.397);
+    background-color: rgb(37, 55, 70);
 }
 
 .nav-subscribe-container {
