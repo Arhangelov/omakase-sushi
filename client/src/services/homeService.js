@@ -2,7 +2,6 @@
 const url = "http://localhost:5000/";
 
 export const getPopularSushi = async ({ ...popularProducts }) => {
-    console.log(popularProducts);
     return fetch( url, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
