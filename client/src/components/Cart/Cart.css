@@ -161,3 +161,7 @@
     color: rgb(24, 32, 38);
     font-weight: 600;
 }
+
+.empty-cart {
+    text-align: center;
+}
