@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { RiArrowRightSLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaStar } from "react-icons/fa6";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MyVideo from "../../resources/dish-vid.mp4";
 import SushiChef from "../../resources/sushi-chef.jpg";
@@ -56,16 +58,39 @@ const Home = () => {
                 cart[index].qty += 1;
     
                 setCart(cart);
+                
+                // Notification on successfully added product to cart
+                toast.success('🍣 Product is added to the cart!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
                 return updateCartService(cart[index], user.email);
             }
     
             setCart([ ...cart, sushiProduct ]);
+
+            // Notification on successfully added product to cart
+            toast.success('🍣 Product is added to the cart!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             return updateCartService(sushiProduct, user.email);
         },[cart, setCart, user.email]);
 
     return (
         <div className="home-page" >
-
             <motion.div className='sushi-video' 
                 style={{ y, opacity}}>
                 <video width="100%" height="900" autoPlay muted loop>
@@ -238,6 +263,18 @@ const Home = () => {
                     </div>
                 </section>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }

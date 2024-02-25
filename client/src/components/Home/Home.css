@@ -197,8 +197,9 @@ video {
 .price-and-buy > button {
     background-color: transparent;
     border: 1px solid rgba(252, 250, 242, 0.753);
-    padding: .2rem 1rem;
-    border-radius: 1rem;
+    padding: .2rem .5rem;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .customer-container {
