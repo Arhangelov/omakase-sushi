@@ -15,6 +15,7 @@ import About from './components/About/About';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
+import Contact from './components/Contact/Contact';
 import Menu from './components/Menu/Menu';
 import Cart from './components/Cart/Cart';
 import TypeOfSushi from './components/TypeOfSushi/TypeOfSushi';
@@ -22,9 +23,10 @@ import Details from './components/Details/Details';
 import FinishedOrder from './components/FinishedOrder/FinishedOrder';
 
 import './App.css';
+import { getCartService } from './services/cartService';
 
 function App() {
-  const [ cart, ] = useCart();
+  const [ cart, setCart] = useCart();
   const [ cartIndicator, setCartIndicator ] = useState(0);
   const [ user, setUser ] = useContext(Context);
   const navigate = useNavigate();
@@ -44,10 +46,19 @@ function App() {
   };
 
   useEffect(() => {
+    if (user.email) {
+      getCartService(user.email)
+        .then((cart) => {
+          setCart(cart.products);
+        })
+    }
+  }, [user.email, setCart])
+
+  useEffect(() => {
     setCartIndicator(
       cart.reduce((totalQuantity, sushi) => totalQuantity + sushi.qty, 0)
     )
-  }, [cart])
+  }, [cart, user.email])
 
   return (
     <div className="App">
@@ -63,6 +74,11 @@ function App() {
             <li>
               <Link className="nav-about" to="/about">
                 About
+              </Link>
+            </li>
+            <li>
+              <Link className="nav-contact" to="/contact">
+                Contact
               </Link>
             </li>
             <li>
@@ -122,12 +138,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/menu/:type" element={<TypeOfSushi />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/menu/:type" element={<TypeOfSushi />} />
         <Route path="/menu/details/:productId" element={<Details />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/finished-order' element={<FinishedOrder/>} />

@@ -29,12 +29,12 @@ body {
     text-align: center;
 }
 
-.nav-home:hover, .nav-about:hover,.nav-logout:hover, .nav-profile:hover, .nav-register:hover, .nav-login:hover {
+.nav-home:hover, .nav-about:hover,.nav-logout:hover, .nav-profile:hover, .nav-register:hover, .nav-login:hover, .nav-contact:hover {
     padding-bottom: .45rem;
     border-bottom: 2px solid rgba(252, 250, 242, 0.384);
 } 
 
-.nav-about .nav-menu, .nav-profile, .nav-register, .nav-login, .nav-cart {
+.nav-about, .nav-menu, .nav-profile, .nav-register, .nav-login, .nav-cart {
     color: rgb(252, 250, 242);
 }
 
