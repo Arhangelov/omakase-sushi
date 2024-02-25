@@ -1,0 +1,63 @@
+.profile-container {
+    margin: 0 auto;
+    width: 1230px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 9rem;
+    /* border: 1px solid rgb(252, 250, 242); */
+}
+
+.order-again-container {
+    /* border: 1px solid rgb(252, 250, 242); */
+    width: 868px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding-bottom: 9rem;
+}
+
+.order-again-container::after {
+    content: " ";
+    min-width: 0;
+    flex-grow: 1;
+}
+
+.order-card {
+    border: 1px solid rgb(252, 250, 242);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.order-card > p:first-child {
+    color: rgba(252, 250, 242, 0.8);
+    padding-bottom: .5rem;
+}
+
+.ordered-products {
+    padding-bottom: .5rem;
+}
+
+.order-card > p:nth-child(3) {
+    color: rgb(255, 189, 46);
+    padding-bottom: .5rem;
+}
+
+.order-card > button {
+    background-color: transparent;
+    border: 1px solid rgb(252, 250, 242);
+    padding: .5rem 1rem;
+    border-radius: .2rem;
+    cursor: pointer;
+}
+
+.order-card > button:hover {
+    background-color: rgb(252, 250, 242);
+    color: rgb(24, 32, 38);
+    font-weight: 600;
+}
