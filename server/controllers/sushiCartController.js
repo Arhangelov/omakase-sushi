@@ -25,7 +25,6 @@ router.post("/update-cart", (req, res) => {
         })
 });
 
-
 router.post("/delete-from-cart", (req, res) => {
     deleteFromCart(req.body)
         .then(cart => {
