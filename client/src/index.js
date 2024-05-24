@@ -6,15 +6,18 @@ import App from './App';
 //Contexts
 import { UserContext } from './store/UserContext';
 import { CartProvider } from './store/CartContext';
+import { CartQtyProvider } from './store/CartQtyContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <CartProvider>
-        <UserContext>
-          <App />
-        </UserContext>
+        <CartQtyProvider>
+          <UserContext>
+            <App />
+          </UserContext>
+        </CartQtyProvider>
       </CartProvider>
     </BrowserRouter>
   </React.StrictMode>
