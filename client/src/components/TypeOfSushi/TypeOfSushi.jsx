@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useCart } from '../../store/CartContext';
 import { Context } from '../../store/UserContext';
+import { useCartQty } from '../../store/CartQtyContext';
 
 import { getSushiType } from '../../services/menuService';
 import { updateCartService } from '../../services/cartService';
@@ -16,6 +17,8 @@ const TypeOfSushi = () => {
   const { type } = useParams();
   const [sushi, setSushi] = useState([]);
   const [cart, setCart] = useCart();
+  // eslint-disable-next-line no-unused-vars
+  const [cartQty, setCartQty] = useCartQty();
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(Context);
 
@@ -34,7 +37,7 @@ const TypeOfSushi = () => {
         const index = cart.indexOf(currentCartItem);
         cart[index].qty += 1;
 
-        setCart(cart);
+        setCart([...cart]);
 
         // Notification on successfully added product to cart
         toast.success('🍣 Product is added to the cart!', {
@@ -47,7 +50,8 @@ const TypeOfSushi = () => {
           progress: undefined,
           theme: "dark",
           });
-        return updateCartService(cart[index], user.email);
+        return updateCartService(cart[index], user.email)
+                .then(cart => setCartQty(cart.sumQty));
       }
 
       setCart([ ...cart, sushiProduct ]);
@@ -63,10 +67,11 @@ const TypeOfSushi = () => {
         progress: undefined,
         theme: "dark",
         });
-      return updateCartService(sushiProduct, user.email);
+      return updateCartService(sushiProduct, user.email)
+              .then(cart => setCartQty(cart.sumQty));
 
     },
-    [cart, setCart, user.email]
+    [cart, setCart, setCartQty, user.email]
   );
 
   return (

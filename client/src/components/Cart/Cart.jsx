@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 //Contexts
 import { useCart } from '../../store/CartContext';
+import { useCartQty } from '../../store/CartQtyContext';
 import { Context } from '../../store/UserContext';
 //Services
 import { updateCartService, deleteFromCartService, getCartService } from '../../services/cartService';
@@ -13,6 +14,8 @@ import SusiSahimi from "../../resources/sushi-sashimi-parallax.jpg"
 
 const Cart = () => {
   const [cart, setCart] = useCart();
+  // eslint-disable-next-line no-unused-vars
+  const [cartQty, setCartQty] = useCartQty();
   const [totalPrice, setTotalPrice] = useState(0);
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(Context);
@@ -24,8 +27,9 @@ useEffect(() => {
     .then((cart) => {
       setCart(cart.products);
       setTotalPrice(cart.totalPrice);
+      setCartQty(cart.sumQty);
     })
-}, [user.email, setCart])
+}, [user.email, setCart, setCartQty])
   
   //Decrement product quantity in the cart
   const handleDecrementProduct = useCallback(
@@ -41,6 +45,7 @@ useEffect(() => {
         deleteFromCartService(cart[index].id, user.email)
           .then(cart => {
             setTotalPrice(cart.totalPrice);
+            setCartQty(cart.sumQty);
           })
         return setCart(filteredCart);
       }
@@ -48,13 +53,14 @@ useEffect(() => {
       setCart([...cart]);
 
       if(cart[index].qty !== 0) {
-        updateCartService(cart[index], user.email)
-          .then(cart => {
-            return setTotalPrice(cart.totalPrice);
-          })
+        return updateCartService(cart[index], user.email)
+                .then(cart => {
+                  setTotalPrice(cart.totalPrice);
+                  setCartQty(cart.sumQty);
+                })
       }
     },
-    [cart, setCart, user.email]
+    [cart, setCart, user.email, setCartQty]
   );
 
     //Increment product quantity in the cart
@@ -65,12 +71,13 @@ useEffect(() => {
       cart[index].qty += 1;
 
       setCart([...cart]);
-      updateCartService(cart[index], user.email)
+      return updateCartService(cart[index], user.email)
         .then(cart => {
-          return setTotalPrice(cart.totalPrice);
+          setTotalPrice(cart.totalPrice);
+          setCartQty(cart.sumQty);
         })
     },
-    [cart, setCart, user.email]
+    [cart, setCart, user.email, setCartQty]
   );
 
   const onFinishOrder = useCallback(() => {
@@ -126,7 +133,7 @@ useEffect(() => {
                     <p>{cart.length} items</p>
                   </div>
                   <div>
-                    <p>${ (totalPrice - 3.00).toFixed(2) }</p>
+                    <p>${ totalPrice.toFixed(2) }</p>
                   </div>
                 </div>
                 <div className="delivery">
@@ -137,7 +144,7 @@ useEffect(() => {
                     <p>${ Number(3.00).toFixed(2) }</p>
                   </div>
                 </div>
-                <h3>Total{" "}${ totalPrice.toFixed(2) }</h3>
+                <h3>Total{" "}${ (totalPrice + 3.00).toFixed(2) }</h3>
                 <button onClick={onFinishOrder}>Finish Order</button>
               </div>
             ): ""}

@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 import { Context } from './store/UserContext';
 import { useCart } from './store/CartContext';
+import { useCartQty } from './store/CartQtyContext';
 import { logoutService } from './services/userAuthService';
 import { toastErrorHandler } from './utils/toastErrorHandling';
 import { CgProfile } from "react-icons/cg";
@@ -26,8 +27,9 @@ import './App.css';
 import { getCartService } from './services/cartService';
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const [ cart, setCart] = useCart();
-  const [ cartIndicator, setCartIndicator ] = useState(0);
+  const [ cartQty, setCartQty] = useCartQty();
   const [ user, setUser ] = useContext(Context);
   const navigate = useNavigate();
 
@@ -50,15 +52,10 @@ function App() {
       getCartService(user.email)
         .then((cart) => {
           setCart(cart.products);
+          setCartQty(cart.sumQty);
         })
     }
-  }, [user.email, setCart])
-
-  useEffect(() => {
-    setCartIndicator(
-      cart.reduce((totalQuantity, sushi) => totalQuantity + sushi.qty, 0)
-    )
-  }, [cart, user.email])
+  }, [user.email, setCart, setCartQty])
 
   return (
     <div className="App">
@@ -123,9 +120,9 @@ function App() {
                 <li>
                   <Link className="nav-cart" to="/cart">
                     <IoCartOutline />
-                    {cartIndicator !== 0 & user.email !== "" ? (
+                    {cartQty !== 0 & user.email !== "" ? (
                       <div className='cart-indicator'>
-                        <p>{cartIndicator}</p>
+                        <p>{cartQty}</p>
                       </div>
                     ) : (
                       ""
