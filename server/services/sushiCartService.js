@@ -18,11 +18,17 @@ const updateCart = async ({ sushiProduct, userEmail }) => {
         user.cart.products.push(sushiProduct);
     }
 
+    //Creating variable for the sum of all quantities of the products and the assign it to the cart.sumQty
+    let sumQty = user.cart.products.reduce((totalQty, cartItem) => {
+        return totalQty + cartItem.qty
+    }, 0)
+
     //Creating variable for Total Price and then assign it to the cart.totalPrice
     let totalPrice = user.cart.products.reduce((total, cartItem) => {
         return total + cartItem.price * cartItem.qty
     }, 0).toFixed(2);
 
+    user.cart.sumQty = sumQty
     user.cart.totalPrice = totalPrice;
 
     await user.save();
