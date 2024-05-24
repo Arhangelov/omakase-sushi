@@ -34,6 +34,11 @@ const userSchema = new mongoose.Schema({
             type: Number,
             default: 0,
         },
+
+        sumQty: {
+            type: Number,
+            default: 0,
+        }
     },
 
     purchaseHistory: []
