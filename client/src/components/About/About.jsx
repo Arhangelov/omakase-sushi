@@ -41,7 +41,7 @@ const About = () => {
                         <p>At Omakase Sushi, we honor this legacy by focusing on local, seasonally available seafood and produce. Our chefs, overlooking the pristine waters of the Pacific Northwest, prioritize Washington and Oregon's treasures—salmon, geoduck, squid, oysters, clams, smelt, and Pacific albacore tuna. Extending our reach regionally, we bring you king crab from Alaska and wild prawns from Canada, culminating in a global selection of fresh fish that reflects our commitment to quality and authenticity.</p>
                         <p>Experience the essence of Edomae-style sushi at Omakase Sushi - where tradition meets innovation, and every bite is a celebration of culinary artistry.</p>
                         <div className="about-cta-buttons">
-                            <Link to={"/reservation"}>Reserve Your Table</Link>
+                            <Link to={"/contact"}>Reserve Your Table</Link>
                             <Link to={"/menu"}>Explore Our Menu</Link>
                         </div>
                     </div>
