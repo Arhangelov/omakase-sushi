@@ -130,7 +130,7 @@ useEffect(() => {
                 <div className="sub-total">
                   <div>
                     <p> Sub-total</p>
-                    <p>{cart.length} items</p>
+                    <p>{cartQty} items</p>
                   </div>
                   <div>
                     <p>${ totalPrice.toFixed(2) }</p>
@@ -147,7 +147,9 @@ useEffect(() => {
                 <h3>Total{" "}${ (totalPrice + 3.00).toFixed(2) }</h3>
                 <button onClick={onFinishOrder}>Finish Order</button>
               </div>
-            ): ""}
+            ): (
+              <h3>The cart is empty</h3>
+            )}
         </section>
       </div>
     </div>
