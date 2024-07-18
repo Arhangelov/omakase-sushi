@@ -248,3 +248,8 @@ a {
     text-decoration: underline;
     text-decoration-color: rgba(252, 250, 242, 0.384);
 }
+
+.expenses-container {
+    border-top: 1px solid rgba(252, 250, 242, 0.384);
+    padding-bottom: 1rem;
+}
