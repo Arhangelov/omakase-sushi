@@ -45,6 +45,12 @@ const deleteFromCart = async ({ sushiId, userEmail }) => {
 
     user.cart.totalPrice = totalPrice;
 
+    let sumQty = user.cart.products.reduce((totalQty, cartItem) => {
+        return totalQty + cartItem.qty
+    }, 0);
+
+    user.cart.sumQty = sumQty;
+
     user.save();
     return user.cart;
 }
@@ -61,6 +67,7 @@ const finishOrder = async({ userEmail }) => {
         user.purchaseHistory.push({ currDate, cart, totalPrice });
         user.cart.products = [];
         user.cart.totalPrice = 0;
+        user.cart.sumQty = 0;
     } else {
         throw new Error("The cart is empty.")
     }
