@@ -1,12 +1,18 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { getPurchaseHistoryService, rePurchaseOrderService } from '../../services/userProfile.service'
-import { Context } from '../../store/UserContext'
+import { getPurchaseHistoryService, rePurchaseOrderService } from '../../services/userProfileService'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./Profile.css"
+import { Context } from '../../store/UserContext';
+import { useCart } from '../../store/CartContext';
+import { useCartQty } from '../../store/CartQtyContext';
 
 const Profile = () => {
     const [user] = useContext(Context);
+    const [cart, setCart] = useCart();
+    const [cartQty, setCartQty] = useCartQty();
     const [purchaseHistory, setPurchaseHistory] = useState([]);
     const navigate = useNavigate();
 
@@ -19,10 +25,32 @@ const Profile = () => {
             .then(orderHistory => setPurchaseHistory(orderHistory));
     },[user.email]);
 
-    const addToCartAgainHandler = useCallback((cart, totalPrice) => {
-        rePurchaseOrderService(cart, totalPrice, user.email);
-        navigate("/cart");
-    },[user.email, navigate])
+    const addToCartAgainHandler = useCallback(async (cart, totalPrice) => {
+        try {
+            const reOrderedCart = await rePurchaseOrderService(cart, totalPrice, user.email);
+
+            if(reOrderedCart) {
+                setCart(reOrderedCart.products);
+                console.log("PROFILE setCart");
+                setCartQty(reOrderedCart.sumQty);
+                navigate("/cart");
+            }
+        } catch (error){
+            console.error(error);
+            toast.error('Something went wrong!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+        }
+
+    
+    },[user.email, navigate, setCart, setCartQty])
 
 
     return (
@@ -45,6 +73,18 @@ const Profile = () => {
                     )}
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </>
     )
 }
