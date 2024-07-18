@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../store/UserContext'
 import { useCart } from '../../store/CartContext';
+import { useCartQty } from '../../store/CartQtyContext';
 
 import { finishOrderService, getCartService } from '../../services/cartService';
+import "./FinishedOrder.css";
 
 const FinishedOrder = () => {
     const [user] = useContext(Context);
     const [cart, setCart] = useCart();
+    const [cartQty, setCartQty] = useCartQty();
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
 
@@ -23,7 +26,8 @@ const FinishedOrder = () => {
 
     useEffect(() => {
         finishOrderService(user.email)
-    }, [user.email])
+        setCartQty(0)
+    }, [user.email, setCartQty])
 
     const onReturnHandler = useCallback(() => {
         navigate("/")
@@ -31,38 +35,45 @@ const FinishedOrder = () => {
 
     return (
         <section className='finish-order-container'>
-            <h1> Thank You for Your Delicious Order, Mr. {user.username}! 🍣🍱🍙</h1>
-            <h2>Time Delivery: {Math.floor(Math.random() * (60 - 40) + 40 )} mins</h2>
-            <ul>
-                Order Details:
-                <li>Order Number: {Math.floor(Math.random() * 10000)}</li>
-                <li>Delivery Address: {user.address}</li>
-            </ul>
-            <p>Here's delightful summary of your order:</p>
-            <table>
-                {cart?.map((sushi) => (
-                    <tr key={sushi.id}>
-                    <li>
-                        <td className="container-img">
-                            {' '}
-                            <img
-                                className="cart-img"
-                                src={sushi.img}
-                                alt="product"
-                            />{' '}
-                        </td>
-                        <td> {sushi.title} </td>
-                        <td> {sushi.qty}x </td>
-                        <td> {sushi.price.toFixed(2)} BGN </td>
-                    </li>
-                    </tr>
-                ))}
-            </table>
-            <ul>
-                <li>Delivery Fee: {Number(0).toFixed(2)} BGN</li>
-                <li>Total Amount: {totalPrice.toFixed(2)} BGN</li>
-            </ul>
-            <button onClick={onReturnHandler}>Return</button>
+            <div>
+                <h4> Thank You for Your Delicious Order, Mr. {user.username}! 🍣🍱🍙</h4>
+                <h6>Time Delivery: {Math.floor(Math.random() * (60 - 40) + 40 )} mins</h6>
+            </div>
+
+            <div>
+                <div className='order-details-container'>
+                    <h4>Order Details:</h4>
+                    <p>Order ID: {Math.floor(Math.random() * 10000)}</p>
+                    <p>Delivery Address: {user.address}</p>
+                </div>
+                <div className='order-main-container'>
+                    {cart?.map((sushi) => (
+                        <div className='order-list-container' key={sushi.id}>
+                        <div className='order-product-container'>
+                            <div className="container-img">
+                                <img
+                                    className="product-img"
+                                    src={sushi.img}
+                                    alt="product"
+                                />
+                            </div>
+                            <p> {sushi.title} </p>
+                            <p> x{sushi.qty} </p>
+                            <p> {sushi.price.toFixed(2)} BGN </p>
+                        </div>
+                        </div>
+                    ))}
+                    <div className='expenses-container'>
+                        <button onClick={onReturnHandler}>&#10094; Return</button>
+                        <div>
+                            <p>Delivery Fee: {Number(3).toFixed(2)} BGN</p>
+                            <p>Total Amount:</p>
+                            <h6> {(totalPrice + Number(3)).toFixed(2)} BGN </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </section>
     )
 }
